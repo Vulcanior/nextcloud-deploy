@@ -1,0 +1,16 @@
+{
+	email plop@plop.null
+	key_type p384
+	admin off
+	auto_https off
+}
+
+http://localhost {
+	root * /var/www/html
+	
+	php_fastcgi nextcloud:9000 {
+		env front_controller_active true
+	}
+
+	file_server
+}
