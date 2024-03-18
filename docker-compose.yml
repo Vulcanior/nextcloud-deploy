@@ -4,18 +4,20 @@ services:
     build: src/caddy
     volumes:
       - caddy:/data
-      - files:/var/www/html:ro
     ports:
-      - 80:80
+    #  - 80:80
       - 443:443
     restart: unless-stopped
   nextcloud:
-    image: nextcloud:stable-fpm-alpine
+    build: src/nextcloud
     volumes:
-      - files:/var/www/html:delegated
+      - files:/var/www/html/data:delegated
+      - config:/var/www/html/config:delegated
+    ports:
+      - "8080:80"
     depends_on:
-        - mariadb
-        - caddy
+      - mariadb
+      - caddy
     restart: unless-stopped
   mariadb:
     image: mariadb:11.3
@@ -28,3 +30,4 @@ volumes:
   files:
   caddy:
   db:
+  config:
