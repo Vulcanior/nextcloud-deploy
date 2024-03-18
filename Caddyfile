@@ -1,11 +1,13 @@
 {
-	email plop@plop.null
+	email patrick@terrat.null
 	key_type p384
 	admin off
 	auto_https off
 }
 
 http://localhost {
+	log
+
 	root * /var/www/html
 	
 	php_fastcgi nextcloud:9000 {

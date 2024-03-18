@@ -14,7 +14,18 @@ services:
     image: nextcloud:stable-fpm-alpine
     volumes:
       - files:/var/www/html:delegated
+    depends_on:
+        - mariadb
+        - caddy
+    restart: unless-stopped
+  mariadb:
+    image: mariadb:11.3
+    volumes:
+      - db:/var/lib/mysql:delegated
+    environment:
+        - MARIADB_ROOT_PASSWORD=root
     restart: unless-stopped
 volumes:
   files:
   caddy:
+  db:
